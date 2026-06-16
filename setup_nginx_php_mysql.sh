@@ -2,7 +2,7 @@
 
 set -e
 
-PHP_VERSION="8.1"
+PHP_VERSION="8.3"
 MYSQL_ROOT_PASSWORD="ChangeMeStrongPassword"
 
 echo "Updating system..."
@@ -16,13 +16,13 @@ echo "Installing MySQL Server..."
 apt install -y mysql-server
 
 echo "Securing MySQL..."
-#mysql --user=root <<EOF
-#ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${MYSQL_ROOT_PASSWORD}';
-#DELETE FROM mysql.user WHERE User='';
-#DROP DATABASE IF EXISTS test;
-#DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
-#FLUSH PRIVILEGES;
-#EOF
+mysql --user=root <<EOF
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${MYSQL_ROOT_PASSWORD}';
+DELETE FROM mysql.user WHERE User='';
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+FLUSH PRIVILEGES;
+EOF
 
 echo "Installing PHP and extensions..."
 apt install -y \
